@@ -21,10 +21,12 @@ angular
 				if (response.status == 401 || response.status == 403) {
 					var deferred = $q.defer();
 
-					scope.failedRequests.push({
-						config : response.config,
-						deferred : deferred
-					});
+					if (response.config.url.indexOf('/logout') == -1) { // do not retry the logout
+						scope.failedRequests.push({
+							config : response.config,
+							deferred : deferred
+						});
+					}
 
 					scope.$broadcast('event:loginRequired');
 					return deferred.promise;
@@ -88,20 +90,3 @@ angular
 				);
 		};
 	}]);
-
-/*function LoginController($scope, dialog, authService, $rootScope) {
-	$scope.errorMessage = '';
-
-	$scope.login = function() {
-		authService.login($scope.email, $scope.password)
-			.then(
-				function(value){
-					$rootScope.$broadcast('event:loginSuccess');
-					dialog.close();
-				},
-				function(value){
-					$scope.errorMessage = 'Error logging in.';
-				}
-			);
-	};
-}*/

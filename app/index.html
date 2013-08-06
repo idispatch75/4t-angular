@@ -6,10 +6,12 @@
   <link rel="stylesheet" href="css/bootstrap-combined.min.css">
   <link rel="stylesheet" href="css/app.css"/>
 </head>
-<body>
+<body ng-controller="MainCtrl">
   <ul class="menu">
     <li><a href="#/transactions">Transactions</a></li>
     <li><a href="#/contacts">Contacts</a></li>
+		<li>{{ getUserName() }}</li>
+		<li><a href="" ng-click="logout()">Logout</a></li>
   </ul>
 
   <div ng-view></div>
