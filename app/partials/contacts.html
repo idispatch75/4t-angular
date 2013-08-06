@@ -1,5 +1,5 @@
-<p>This is the partial for view 2.</p>
-<p>
-  Showing of 'interpolate' filter:
-  {{ 'Current version is v%VERSION%.' | interpolate }}
-</p>
+<h1>Contacts</h1>
+
+<ul>
+	<li ng-repeat="contact in contacts">{{contact.profile.pseudo}}</li>
+</ul>

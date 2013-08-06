@@ -16,6 +16,15 @@ angular.module('4t.controllers', []).
   	);
   }])
   
-  .controller('ContactsCtrl', [function() {
-
+  .controller('ContactsCtrl', ['$scope', 'ContactsService', function($scope, contactsService) {
+		$scope.contacts = [];
+  	
+  	contactsService.getAll().then(
+  		function (value) {
+  			$scope.contacts = value;
+  		},
+  		function (value) {
+  			$scope.contacts = [];
+  		}
+  	);
   }]);

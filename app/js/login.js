@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-	.module('4t.login', [ 'ui.bootstrap' ])
+	.module('4t.login', [ 'ui.bootstrap', '4t.services' ])
 	
 	// intercept $http responses to raise event:loginRequired on 401 or 403
 	// and store the failed request for further processing when the user is logged
@@ -38,7 +38,8 @@ angular
 		'$rootScope',
 		'$dialog',
 		'$http',
-		function($rootScope, $dialog, $http) {
+		'AuthService',
+		function($rootScope, $dialog, $http, auth) {
 			$rootScope.failedRequests = [];
 
 			// when login is required, show the login popup
@@ -47,7 +48,7 @@ angular
 					backdrop : true,
 					dialogFade : true,
 					templateUrl : 'partials/login.html',
-					controller : 'LoginController',
+					controller : 'LoginCtrl',
 					backdropClick : false,
 					keyboard : false
 				});
@@ -60,6 +61,7 @@ angular
 				for (var i = 0; i < $rootScope.failedRequests.length; i++) {
 					var request = $rootScope.failedRequests[i];
 
+					request.config.url = auth.injectUserId(request.config.url);
 					$http(request.config)
 						.then(function(response) {
 							request.deferred.resolve(response);
@@ -69,9 +71,25 @@ angular
 				$rootScope.failedRequests = [];
 			});
 		}
-	]);
+	])
+	.controller('LoginCtrl', ['$scope', 'dialog', 'AuthService', '$rootScope', function($scope, dialog, auth, $rootScope) {
+		$scope.errorMessage = '';
 
-function LoginController($scope, dialog, authService, $rootScope) {
+		$scope.login = function() {
+			auth.login($scope.email, $scope.password)
+				.then(
+					function(value){
+						$rootScope.$broadcast('event:loginSuccess');
+						dialog.close();
+					},
+					function(value){
+						$scope.errorMessage = 'Error logging in.';
+					}
+				);
+		};
+	}]);
+
+/*function LoginController($scope, dialog, authService, $rootScope) {
 	$scope.errorMessage = '';
 
 	$scope.login = function() {
@@ -86,4 +104,4 @@ function LoginController($scope, dialog, authService, $rootScope) {
 				}
 			);
 	};
-}
+}*/
