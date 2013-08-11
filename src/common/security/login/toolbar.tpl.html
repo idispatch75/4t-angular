@@ -2,16 +2,12 @@
 	<form ng-hide="isAuthenticated()" class="navbar-form pull-right">
 		<div class="input-prepend" style="margin-bottom: 0px">
 			<span class="add-on"><i class="icon-envelope"></i></span>
-			<input class="span2"  type="email" placeholder="Email" name="email" ng-model="form.email" required autofocus>
+			<input class="span3"  type="email" placeholder="Email" name="email" ng-model="form.email" required autofocus>
 		</div>
 		<input class="span2" type="password" placeholder="Mot de passe" name="password" ng-model="form.password" required>
 		<button class="btn" type="submit" ng-click="login()">Se connecter</button>
 		<button class="btn btn-link" type="button">Créer un compte</button>
 	</form>
-	<!--form ng-show="isAuthenticated()" class="navbar-form pull-right">
-		<a href="#">{{user.profile.firstName}} {{user.profile.lastName}}</a>
-		<button class="btn btn-link" type="button" ng-click="logout()">Se déconnecter</button>
-	</form-->
 
 	<div ng-show="isAuthenticated()" class="pull-right">
 		<ul class="nav">

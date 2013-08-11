@@ -55,6 +55,7 @@ module.exports = {
       'vendor/angular-ui-utils/route.js',
       'vendor/underscore/underscore.js',
 			'vendor/angular-translate/angular-translate.js',
+	    'vendor/angular-i18n/angular-locale_fr-fr.js',
 			'vendor/angular-cookies/angular-cookies.js',
 			'vendor/angular-translate-storage-cookie/angular-translate-storage-cookie.js',
 			'vendor/angular-translate-storage-local/angular-translate-storage-local.js',

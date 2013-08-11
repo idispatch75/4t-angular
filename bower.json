@@ -9,7 +9,8 @@
     "angular-ui-router": "~0.0.1",
     "angular-ui-utils": "~0.0.3",
     "angular-translate": "~1.0.2",
-    "underscore": "~1.0.2",
+	  "angular-i18n": "~1.0.7",
+    "underscore": "~1.5.1",
     "angular-cookies": "1.0.7",
     "angular-translate-storage-cookie": "~0.1.4",
     "angular-translate-storage-local": "~0.1.4",
@@ -24,6 +25,9 @@
       "angular-ui-utils": [
         "bower_components/angular-ui-utils/modules/route/route.js"
       ],
+	    "angular-i18n": [
+		    "bower_components/angular-i18n/angular-locale_fr-fr.js"
+	    ],
       "angular-bootstrap": "bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
 			"bootstrap": [
 				"bower_components/bootstrap/less/variables.less",

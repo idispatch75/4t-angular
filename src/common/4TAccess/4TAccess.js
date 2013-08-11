@@ -3,10 +3,10 @@ angular.module('services.4TAccess', ['security.service']);
 angular.module('services.4TAccess')
 	.factory('RequestPerformer', ['$http', 'apiUrl', '$q', 'security', function ($http, apiUrl, $q, security) {
 		return {
-			get: function (relativeUrl, onSuccess) {
+			get: function (relativeUrl, onSuccess, config) {
 				var deferred = $q.defer();
 
-				$http.get(security.getUserUrl(relativeUrl))
+				$http.get(security.getUserUrl(relativeUrl), config)
 					.success(function (data, status, headers, config) {
 						if (!data.header.error) {
 							if (onSuccess) {
@@ -33,16 +33,16 @@ angular.module('services.4TAccess')
 
 	.factory('TransactionsService', ['RequestPerformer', function (req) {
 		return {
-			getAll: function () {
-				return req.get('/transactions');
+			getAll: function (cache) {
+				return req.get('/transactions', null, {cache: cache});
 			}
 		};
 	}])
 
 	.factory('ContactsService', ['RequestPerformer', function (req) {
 		return {
-			getAll: function () {
-				return req.get('/contacts');
+			getAll: function (cache) {
+				return req.get('/contacts', null, {cache: cache});
 			}
 		};
 	}])

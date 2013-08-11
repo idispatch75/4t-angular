@@ -1,15 +1,14 @@
 angular.module('app', [
 		'templates-app',
 		'templates-common',
-		'app.home',
-		'app.about',
 		'ui.state',
 		'ui.route',
 		'pascalprecht.translate',
 		'security',
 		'services.notifications',
 		'app.transactions',
-		'app.contacts'
+		'app.contacts',
+		'app.home'
 	])
 
 	.config(function myAppConfig($stateProvider, $urlRouterProvider) {

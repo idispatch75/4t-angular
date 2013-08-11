@@ -21,7 +21,7 @@ angular.module('security.retryQueue', [])
         }
       });
     },
-    pushRetryFn: function(reason, retryFn) {
+/*    pushRetryFn: function(reason, retryFn) {
       // The reason parameter is optional
       if ( arguments.length === 1) {
         retryFn = reason;
@@ -49,18 +49,18 @@ angular.module('security.retryQueue', [])
       };
       service.push(retryItem);
       return deferred.promise;
-    },
+    },*/
     retryReason: function() {
       return service.hasMore() && retryQueue[0].reason;
     },
     cancelAll: function() {
       while(service.hasMore()) {
-        retryQueue.shift().cancel();
+        retryQueue.shift();//.cancel();
       }
     },
     retryAll: function() {
       while(service.hasMore()) {
-        retryQueue.shift().retry();
+        retryQueue.shift();//.retry();
       }
     }
   };

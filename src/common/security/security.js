@@ -22,8 +22,8 @@ angular.module('security.service', [
 					if (queue.hasMore()) {
 						clearAuth();
 						queue.cancelAll();
-						notifications.pushForNextRoute({type: 'error', message: queue.retryReason()});
-						redirect('/');
+						notifications.pushForNextRoute({type: 'error', message: retryItem});
+						redirect();
 					}
 				});
 
@@ -105,6 +105,8 @@ angular.module('security.service', [
 					getUserUrl: function (urlPart) {
 						if (service.user) {
 							return apiUrl + '/user/' + service.user.userId + urlPart;
+						} else {
+							return apiUrl + '/user/' + urlPart;
 						}
 					},
 

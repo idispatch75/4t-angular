@@ -6,8 +6,7 @@ angular.module('security.interceptor', ['security.retryQueue'])
     // Intercept failed requests
     return promise.then(null, function(originalResponse) {
       if(originalResponse.status === 401) {
-        // The request bounced because it was not authorized - add a new request to the retry queue
-        promise = queue.push('security.unauthorized');
+        queue.push('security.unauthorized');
       }
       return promise;
     });

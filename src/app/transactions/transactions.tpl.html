@@ -1,3 +1,19 @@
-<ul>
-	<li ng-repeat="item in items">{{item.transactionId}}</li>
-</ul>
+<div class="input-prepend input-append">
+	<span class="add-on"><i class="icon-filter"></i></span>
+	<input type="text" class="span2" ng-model="searchPseudo" ng-change="filterPseudo()">
+	<button class="btn" type="button" ng-click="clearFilter()"><i class="icon-remove"></i></button>
+</div>
+<table class="table table-condensed table-bordered table-hover">
+	<thead>
+		<tr><th>Pseudo</th><th>Montant</th><th>Date</th><th>Commentaire</th></tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="item in items" ng-class="{ 'error': item.isDebt, 'success': !item.isDebt }">
+			<td><a href="" ng-click="addFilter(item.pseudo)"><i class="icon-filter"></i></a>{{ item.pseudo }}</td>
+			<td>{{ item.amount | currency:"€" }}</td>
+			<td>{{ item.date | date:"mediumDate" }}</td>
+			<td>{{ item.comment }}</td>
+		</tr>
+		<tr><td></td><td><strong>{{ getTotal() | currency:"€" }}</strong></td><td></td><td></td></tr>
+	</tbody>
+</table>
