@@ -1,0 +1,55 @@
+{
+  "name": "4Thune",
+  "version": "0.0.1",
+  "devDependencies": {
+    "angular": "~1.0.7",
+    "angular-mocks": "~1.0.7",
+    "angular-bootstrap": "~0.3.0",
+		"bootstrap": "~2.3.2",
+    "angular-ui-router": "~0.0.1",
+    "angular-ui-utils": "~0.0.3",
+    "angular-translate": "~1.0.2",
+    "underscore": "~1.0.2",
+    "angular-cookies": "1.0.7",
+    "angular-translate-storage-cookie": "~0.1.4",
+    "angular-translate-storage-local": "~0.1.4",
+    "angular-translate-loader-static-files": "~0.1.4",
+    "angular-translate-interpolation-messageformat": "~0.1.3",
+    "messageformat": "~0.1.6"
+  },
+  "install": {
+    "path": "./vendor",
+    "sources": {
+      "angular-ui-router": "bower_components/angular-ui-router/release/angular-ui-router.js",
+      "angular-ui-utils": [
+        "bower_components/angular-ui-utils/modules/route/route.js"
+      ],
+      "angular-bootstrap": "bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
+			"bootstrap": [
+				"bower_components/bootstrap/less/variables.less",
+				"bower_components/bootstrap/less/mixins.less",
+				"bower_components/bootstrap/less/reset.less",
+				"bower_components/bootstrap/less/utilities.less",
+				"bower_components/bootstrap/less/scaffolding.less",
+				"bower_components/bootstrap/less/grid.less",
+				"bower_components/bootstrap/less/layouts.less",
+				"bower_components/bootstrap/less/type.less",
+				"bower_components/bootstrap/less/forms.less",
+				"bower_components/bootstrap/less/tables.less",
+				"bower_components/bootstrap/less/sprites.less",
+				"bower_components/bootstrap/less/dropdowns.less",
+				"bower_components/bootstrap/less/wells.less",
+				"bower_components/bootstrap/less/component-animations.less",
+				"bower_components/bootstrap/less/close.less",
+				"bower_components/bootstrap/less/buttons.less",
+				"bower_components/bootstrap/less/button-groups.less",
+				"bower_components/bootstrap/less/alerts.less",
+				"bower_components/bootstrap/less/navs.less",
+				"bower_components/bootstrap/less/navbar.less",
+				"bower_components/bootstrap/less/modals.less",
+				"bower_components/bootstrap/less/tooltip.less",
+				"bower_components/bootstrap/less/popovers.less"
+			]
+    }
+  }
+}
