@@ -1,9 +1,5 @@
-*.sw*
-*~
-build/
-bin/
-node_modules/
-vendor/
-
 .idea
 bower_components
+/build
+/node_modules
+/vendor
