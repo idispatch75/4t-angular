@@ -28,3 +28,8 @@ The served pages are in `./build`.
 $ grunt
 ```
 The deployable is in `./bin`.
+
+# Example
+
+The bin is visible here : http://idispatch75.github.io/4t-angular/
+It must be used with Chrome with command line options `--disable-web-security`.
