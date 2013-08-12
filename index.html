@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html ng-app="app" ng-controller="AppCtrl">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+	<title>4Thune</title>
+
+	<!-- compiled CSS -->
+	<link rel="stylesheet" type="text/css" href="assets/4Thune.css"/>
+	
+
+	<!--[if IE 7>
+	<link rel="stylesheet" href="assets/font-awesome-ie7.min.css />
+	<![endif]-->
+
+	<!-- it's stupid to have to load it here, but this is for the +1 button -->
+	<script type="text/javascript" src="https://apis.google.com/js/plusone.js">
+		{
+			"parsetags"
+		:
+			"explicit"
+		}
+	</script>
+</head>
+<body style="padding-top: 45px">
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<a class="brand" href="#/home">4Thune</a>
+				<ul class="nav" ng-show="isAuthenticated()">
+					<li ng-class="{ active: $state.includes('transactions') }"><a href="#/transactions">Transactions</a></li>
+					<li ng-class="{ active: $state.includes('contacts') }"><a href="#/contacts">Contacts</a></li>
+				</ul>
+				<login-toolbar redirect="transactions"></login-toolbar>
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid" ng-include="'notifications/notifications.tpl.html'" ng-show="notifications.getCurrent().length"></div>
+
+	<div class="container" ui-view="main"></div>
+
+	<!-- compiled JS -->
+	<script type="text/javascript" src="assets/4Thune.js"></script>
+	
+</body>
+</html>
