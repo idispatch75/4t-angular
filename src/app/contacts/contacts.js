@@ -2,8 +2,9 @@ angular.module('app.contacts', [
 		'ui.state',
 		'ui.bootstrap',
 		'titleService',
-		'services.4TAccess',
-		'services.notifications'
+		'services.4TApi',
+		'services.notifications',
+		'pascalprecht.translate'
 	])
 
 	.config(function config($stateProvider) {
@@ -19,11 +20,11 @@ angular.module('app.contacts', [
 	})
 
 	.controller('ContactsCtrl',
-		['$scope', 'titleService', 'ContactsService', 'notifications',
-			function ($scope, titleService, items, notifications) {
+		['$scope', 'titleService', '4TApi', 'notifications',
+			function ($scope, titleService, api, notifications) {
 				titleService.setTitle('contacts.title');
 
-				items.getAll().then(
+				api.contacts.getAll().then(
 					function (value) {
 						$scope.items = value;
 					},
@@ -35,4 +36,12 @@ angular.module('app.contacts', [
 			}
 		]
 	)
+
+	.config(['$translateProvider', function ($translateProvider) {
+		$translateProvider.translations('fr', {
+			contacts: {
+				title: 'Contacts'
+			}
+		});
+	}])
 ;

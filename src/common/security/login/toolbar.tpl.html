@@ -1,19 +1,19 @@
 <div>
-	<form ng-hide="isAuthenticated()" class="navbar-form pull-right">
+	<form ng-hide="isAuthenticated()" class="navbar-form pull-right" novalidate>
 		<div class="input-prepend" style="margin-bottom: 0px">
 			<span class="add-on"><i class="icon-envelope"></i></span>
-			<input class="span3"  type="email" placeholder="Email" name="email" ng-model="form.email" required autofocus>
+			<input class="span3"  type="email" placeholder="{{ 'login.email' | translate }}" name="email" ng-model="form.email" required autofocus>
 		</div>
-		<input class="span2" type="password" placeholder="Mot de passe" name="password" ng-model="form.password" required>
-		<button class="btn" type="submit" ng-click="login()">Se connecter</button>
-		<button class="btn btn-link" type="button">Créer un compte</button>
+		<input class="span2" type="password" placeholder="{{ 'login.password' | translate }}" name="password" ng-model="form.password" required>
+		<button class="btn" type="submit" ng-click="login()" translate>login.login</button>
+		<button class="btn btn-link" type="button" translate>login.createAccount</button>
 	</form>
 
 	<div ng-show="isAuthenticated()" class="pull-right">
 		<ul class="nav">
 			<li><a href="#">{{user.profile.firstName}} {{user.profile.lastName}}</a></li>
 			<li class="divider-vertical"></li>
-			<li><a href="#" ng-click="logout()">Se déconnecter</a></li>
+			<li><a href="#" ng-click="logout()" translate>login.logout</a></li>
 		</ul>
 	</div>
 </div>

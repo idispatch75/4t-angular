@@ -12,35 +12,43 @@
  * The dependencies block here is also where component dependencies should be
  * specified, as shown below.
  */
-angular.module( 'app.home', [
-  'ui.state',
-  'titleService',
-  'plusOne'
-])
+angular.module('app.home', [
+		'ui.state',
+		'titleService',
+		'plusOne',
+		'pascalprecht.translate'
+	])
 
 /**
  * Each section or module of the site can also have its own routes. AngularJS
  * will handle ensuring they are all available at run-time, but splitting it
  * this way makes each module more "self-contained".
  */
-.config(function config( $stateProvider ) {
-  $stateProvider.state( 'home', {
-    url: '/home',
-    views: {
-      "main": {
-        controller: 'HomeCtrl',
-        templateUrl: 'home/home.tpl.html'
-      }
-    }
-  });
-})
+	.config(function config($stateProvider) {
+		$stateProvider.state('home', {
+			url: '/home',
+			views: {
+				"main": {
+					controller: 'HomeCtrl',
+					templateUrl: 'home/home.tpl.html'
+				}
+			}
+		});
+	})
 
 /**
  * And of course we define a controller for our route.
  */
-.controller( 'HomeCtrl', function HomeController( $scope, titleService ) {
-  titleService.setTitle( 'Home' );
-})
+	.controller('HomeCtrl', ['$scope', 'titleService', '$translate',
+		function HomeController($scope, titleService, $translate) {
+			titleService.setTitle($translate('home.title'));
+		}])
 
-;
+	.config(['$translateProvider', function ($translateProvider) {
+		$translateProvider.translations('fr', {
+			home: {
+				title: 'Accueil'
+			}
+		});
+	}]);
 

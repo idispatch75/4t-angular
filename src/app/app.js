@@ -11,20 +11,16 @@ angular.module('app', [
 		'app.home'
 	])
 
-	.config(function myAppConfig($stateProvider, $urlRouterProvider) {
+	.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
 		$urlRouterProvider.otherwise('/home');
-	})
-
-	.config(['$httpProvider', function ($httpProvider) {
-		$httpProvider.defaults.headers.common['X-4T-AppId'] = 'web';
-		//delete $httpProvider.defaults.headers.common['X-Requested-With'];
 	}])
 
-	.run(['$rootScope', '$state', '$stateParams', 'titleService', function run($rootScope, $state, $stateParams, titleService) {
-		titleService.setSuffix(' | 4Thune');
-		$rootScope.$state = $state;
-		$rootScope.$stateParams = $stateParams;
-	}])
+	.run(['$rootScope', '$state', '$stateParams', 'titleService',
+		function ($rootScope, $state, $stateParams, titleService) {
+			titleService.setSuffix(' | 4Thune');
+			$rootScope.$state = $state;
+			$rootScope.$stateParams = $stateParams;
+		}])
 
 	.controller('AppCtrl',
 		['$scope', 'notifications', 'security',
@@ -38,4 +34,9 @@ angular.module('app', [
 				$scope.isAuthenticated = security.isAuthenticated;
 			}
 		]
-	);
+	)
+
+	.config(['$translateProvider', function ($translateProvider) {
+		$translateProvider.preferredLanguage('fr');
+		$translateProvider.fallbackLanguage('en');
+	}]);

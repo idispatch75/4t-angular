@@ -2,14 +2,14 @@ angular.module('security.service', [
 		'security.retryQueue',    // Keeps track of failed requests that need to be retried once the user logs in
 		'ngCookies',
 		'ui.route',
-		'services.notifications'
+		'services.notifications',
+		'services.4TApi',
+		'pascalprecht.translate'
 	])
 
-	.constant('apiUrl', 'http://api.4t.com:8080/api/v1')
-
 	.factory('security',
-		['$http', 'apiUrl', '$q', 'securityRetryQueue', '$cookieStore', '$state', 'notifications',
-			function ($http, apiUrl, $q, queue, $cookieStore, $state, notifications) {
+		['4TApi', '$q', 'securityRetryQueue', '$cookieStore', '$state', 'notifications',
+			function (api, $q, queue, $cookieStore, $state, notifications) {
 
 				// Redirect to the given url (defaults to 'home')
 				function redirect(state) {
@@ -22,14 +22,25 @@ angular.module('security.service', [
 					if (queue.hasMore()) {
 						clearAuth();
 						queue.cancelAll();
-						notifications.pushForNextRoute({type: 'error', message: retryItem});
-						redirect();
+
+						var message;
+						if (retryItem.url.indexOf('/users/login') > 0) {
+							message = 'security.invalidLogin';
+						} else {
+							message = 'security.unauthorized';
+						}
+
+						if ($state.current.name == 'home') {
+							notifications.pushForCurrentRoute({type: 'error', message: message});
+						} else {
+							notifications.pushForNextRoute({type: 'error', message: message});
+						}
+						redirect('home');
 					}
 				});
 
 				function clearAuth() {
-					service.user = null;
-					delete $http.defaults.headers.common['X-4T-Token'];
+					api.resetUser();
 
 					$cookieStore.remove('userId');
 					$cookieStore.remove('token');
@@ -37,7 +48,6 @@ angular.module('security.service', [
 
 				// The public API of the service
 				var service = {
-
 					// Get the first reason for needing a login
 					getLoginReason: function () {
 						return queue.retryReason();
@@ -48,35 +58,14 @@ angular.module('security.service', [
 					login: function (email, password) {
 						var deferred = $q.defer();
 
-						$http({
-							url: apiUrl + '/users/login',
-							method: 'POST',
-							params: {email: email, password: password}
-						})
+						api.login(email, password)
 							.success(function (data) {
 								if (!data.header.error) {
-									service.user = data.body;
+									api.setUser(data.body);
 
-									// set token header
-									$http.defaults.headers.common['X-4T-Token'] = service.user.token;
-
-									// get user profile
-									$http.get(service.getUserUrl(''), {userId: service.user.userId})
-										.success(function (data) {
-											// add profile to the user
-											service.user.profile = data.body;
-
-											// store in cookies
-											$cookieStore.put('userId', service.user.userId);
-											$cookieStore.put('token', service.user.token);
-										})
-										.error(function (data, status) {
-											if (status == 400) {
-												requestFailed(data.header.code);
-											} else {
-												requestFailed('security.unexpectedError', {error : status});
-											}
-										});
+									// store in cookies
+									$cookieStore.put('userId', api.user.userId);
+									$cookieStore.put('token', api.user.token);
 
 									deferred.resolve(true);
 								}
@@ -87,7 +76,7 @@ angular.module('security.service', [
 							.error(function (data, status) {
 								if (status == 400) {
 									requestFailed(data.header.code);
-								} else {
+								} else if (status != 401) {
 									requestFailed('security.unexpectedError', {error : status});
 								}
 							});
@@ -102,20 +91,9 @@ angular.module('security.service', [
 						return deferred.promise;
 					},
 
-					getUserUrl: function (urlPart) {
-						if (service.user) {
-							return apiUrl + '/user/' + service.user.userId + urlPart;
-						} else {
-							return apiUrl + '/user/' + urlPart;
-						}
-					},
-
 					// Logout the current user and redirect
 					logout: function (redirectTo) {
-						$http({
-							url: service.getUserUrl('/logout'),
-							method: 'post',
-							params: {token: service.user.token}}).then(function () {
+						api.logout().then(function () {
 								clearAuth();
 								redirect(redirectTo);
 							});
@@ -124,23 +102,20 @@ angular.module('security.service', [
 					// Ask the backend to see if a user is already authenticated - this may be from a previous session.
 					requestUser: function () {
 						if (service.isAuthenticated()) {
-							return $q.when(service.user);
+							return $q.when(api.user);
 						} else {
 							return $q.reject();
 						}
 					},
 
-					// Information about the current user
-					user: null,
-
 					// Is the current user authenticated?
 					isAuthenticated: function () {
-						return !!service.user;
+						return !!api.user;
 					},
 
 					// Is the current user an adminstrator?
 					isAdmin: function () {
-						return !!(service.user && service.user.admin);
+						return !!(api.user && api.user.admin);
 					}
 				};
 
@@ -148,17 +123,20 @@ angular.module('security.service', [
 				var userId = $cookieStore.get('userId');
 				if (userId) {
 					// restore auth
-					service.user = { userId: userId, token: $cookieStore.get('token')};
-					$http.defaults.headers.common['X-4T-Token'] = service.user.token;
-
-					// get profile
-					$http.get(service.getUserUrl(''), {userId: service.user.userId})
-						.success(function (data) {
-							service.user.profile = data.body;
-						});
+					api.setUser({ userId: userId, token: $cookieStore.get('token')});
 				}
 
 				return service;
 			}
 		]
-	);
+	)
+
+	.config(['$translateProvider', function ($translateProvider) {
+		$translateProvider.translations('fr', {
+			security: {
+				unauthorized: 'Vous devez être connecté pour accéder à cette page',
+				unexpectedError: "Une erreur inattendue s'est produite : {{ error }}",
+				invalidLogin: "L'e-mail ou mot de passe fournis sont incorrects"
+			}
+		});
+	}]);

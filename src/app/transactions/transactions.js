@@ -2,8 +2,9 @@ angular.module('app.transactions', [
 		'ui.state',
 		'ui.bootstrap',
 		'titleService',
-		'services.4TAccess',
-		'services.notifications'
+		'services.4TApi',
+		'services.notifications',
+		'pascalprecht.translate'
 	])
 
 	.config(function config($stateProvider) {
@@ -19,9 +20,9 @@ angular.module('app.transactions', [
 	})
 
 	.controller('TransactionsCtrl',
-		['$scope', 'titleService', 'TransactionsService', 'notifications', 'ContactsService',
-			function ($scope, titleService, items, notifications, contactsSvc) {
-				titleService.setTitle('transactions.title');
+		['$scope', 'titleService', '4TApi', 'notifications', '$translate',
+			function ($scope, titleService, api, notifications, $translate) {
+				titleService.setTitle($translate('transactions.title'));
 
 				var total = 0;
 				$scope.searchPseudo = "";
@@ -63,10 +64,10 @@ angular.module('app.transactions', [
 				// stored contacts, in case of update failure
 				var contacts = [];
 
-				items.getAll().then(
+				api.transactions.getAll().then(
 					function (txs) {
 						// get contacts list, to show their name
-						contactsSvc.getAll(true).then(
+						api.contacts.getAll(true).then(
 							function (value) {
 								contacts = value;
 								buildTransactions();
@@ -77,7 +78,9 @@ angular.module('app.transactions', [
 						function buildTransactions() {
 							total = 0;
 
-							transactions = _.map(_.filter(txs, function(tx) { return !tx.paid; }), function (tx) {
+							transactions = _.map(_.filter(txs, function (tx) {
+								return !tx.paid;
+							}), function (tx) {
 								var item = {};
 								item.id = tx.transactionId;
 								item.amount = tx.amount;
@@ -110,4 +113,16 @@ angular.module('app.transactions', [
 			}
 		]
 	)
+
+	.config(['$translateProvider', function ($translateProvider) {
+		$translateProvider.translations('fr', {
+			transactions: {
+				title: 'Transactions',
+				pseudo: 'Pseudo',
+				amount: 'Montant',
+				date: 'Date',
+				comment: 'Commentaire'
+			}
+		});
+	}])
 ;

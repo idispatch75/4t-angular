@@ -5,7 +5,7 @@
 </div>
 <table class="table table-condensed table-bordered table-hover">
 	<thead>
-		<tr><th>Pseudo</th><th>Montant</th><th>Date</th><th>Commentaire</th></tr>
+		<tr><th translate>transactions.pseudo</th><th translate>transactions.amount</th><th translate>transactions.date</th><th translate>transactions.comment</th></tr>
 	</thead>
 	<tbody>
 		<tr ng-repeat="item in items" ng-class="{ 'error': item.isDebt, 'success': !item.isDebt }">
