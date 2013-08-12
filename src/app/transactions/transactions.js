@@ -77,7 +77,7 @@ angular.module('app.transactions', [
 						function buildTransactions() {
 							total = 0;
 
-							transactions = _.map(txs, function (tx) {
+							transactions = _.map(_.filter(txs, function(tx) { return !tx.paid; }), function (tx) {
 								var item = {};
 								item.id = tx.transactionId;
 								item.amount = tx.amount;

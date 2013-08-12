@@ -513,7 +513,7 @@ module.exports = function (grunt) {
 					livereload: false
 				}
 			}
-		},
+		}
 	};
 
 	grunt.initConfig(grunt.util._.extend(taskConfig, userConfig));
