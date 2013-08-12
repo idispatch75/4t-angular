@@ -18,7 +18,6 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-karma');
 	grunt.loadNpmTasks('grunt-ngmin');
 	grunt.loadNpmTasks('grunt-html2js');
-	grunt.loadNpmTasks('grunt-build-gh-pages');
 
 	/**
 	 * Load in our build configuration file.
@@ -515,19 +514,6 @@ module.exports = function (grunt) {
 				}
 			}
 		},
-		
-		build_gh_pages: {
-			gh_pages: {
-				// Leave empty if you just want to run the defaults
-			},
-			production: {
-				options: {
-					build_branch: "gh-pages",
-					dist: "bin",
-					pull: false
-				}
-			}
-		}
 	};
 
 	grunt.initConfig(grunt.util._.extend(taskConfig, userConfig));
@@ -561,7 +547,7 @@ module.exports = function (grunt) {
 	 * minifying your code.
 	 */
 	grunt.registerTask('compile', [
-		'recess:compile', 'copy:compile_assets', 'ngmin', 'concat', 'uglify', 'index:compile', 'build_gh_pages'
+		'recess:compile', 'copy:compile_assets', 'ngmin', 'concat', 'uglify', 'index:compile'
 	]);
 
 	/**
