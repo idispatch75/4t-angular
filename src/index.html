@@ -43,5 +43,9 @@
 	<!-- compiled JS --><% scripts.forEach( function ( file ) { %>
 	<script type="text/javascript" src="<%= file %>"></script>
 	<% }); %>
+
+	<!-- compiled i18n --><% i18n.forEach( function ( file ) { %>
+	<script type="text/javascript" src="<%= file %>"></script>
+	<% }); %>
 </body>
 </html>

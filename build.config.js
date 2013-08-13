@@ -20,7 +20,8 @@ module.exports = {
    * app's unit tests.
    */
   app_files: {
-    js: [ 'src/**/*.js', '!src/**/*.spec.js' ],
+    js: [ 'src/**/*.js', '!src/**/*.spec.js', '!src/**/*.i18n.js' ],
+	  i18n: [ 'src/**/*.i18n.js' ],
     jsunit: [ 'src/**/*.spec.js' ],
     
     coffee: [ 'src/**/*.coffee', '!src/**/*.spec.coffee' ],

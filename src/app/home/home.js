@@ -14,7 +14,7 @@
  */
 angular.module('app.home', [
 		'ui.state',
-		'titleService',
+		'services.title',
 		'plusOne',
 		'pascalprecht.translate'
 	])
@@ -43,12 +43,5 @@ angular.module('app.home', [
 		function HomeController($scope, titleService, $translate) {
 			titleService.setTitle($translate('home.title'));
 		}])
-
-	.config(['$translateProvider', function ($translateProvider) {
-		$translateProvider.translations('fr', {
-			home: {
-				title: 'Accueil'
-			}
-		});
-	}]);
+;
 

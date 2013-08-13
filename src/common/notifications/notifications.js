@@ -60,12 +60,4 @@ angular.module('services.notifications', ['pascalprecht.translate'])
 		};
 
 		return notificationsService;
-	}])
-
-	.config(['$translateProvider', function ($translateProvider) {
-		$translateProvider.translations('fr', {
-			error: {
-				fatal: "Une exception s'est produite : {{ exception }} en raison de {{ cause }}"
-			}
-		});
 	}]);

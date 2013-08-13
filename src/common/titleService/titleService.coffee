@@ -1,4 +1,4 @@
-angular.module( 'titleService', [])
+angular.module( 'services.title', [])
 
 .factory 'titleService', ( $document ) ->
   suffix = title = ""

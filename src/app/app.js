@@ -4,7 +4,7 @@ angular.module('app', [
 		'ui.state',
 		'ui.route',
 		'pascalprecht.translate',
-		'security',
+		'services.security',
 		'services.notifications',
 		'app.transactions',
 		'app.contacts',
@@ -34,9 +34,4 @@ angular.module('app', [
 				$scope.isAuthenticated = security.isAuthenticated;
 			}
 		]
-	)
-
-	.config(['$translateProvider', function ($translateProvider) {
-		$translateProvider.preferredLanguage('fr');
-		$translateProvider.fallbackLanguage('en');
-	}]);
+	);

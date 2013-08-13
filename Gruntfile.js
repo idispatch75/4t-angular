@@ -109,7 +109,7 @@ module.exports = function (grunt) {
 			build_appjs: {
 				files: [
 					{
-						src: [ '<%= app_files.js %>' ],
+						src: [ '<%= app_files.js %>', '<%= app_files.i18n %>' ],
 						dest: '<%= build_dir %>/',
 						cwd: '.',
 						expand: true
@@ -154,9 +154,10 @@ module.exports = function (grunt) {
 					'<%= vendor_files.js %>',
 					'module.prefix',
 					'<%= build_dir %>/src/**/*.js',
+					'!<%= build_dir %>/src/**/*.i18n.js',
+					'<%= build_dir %>/src/**/*.i18n.js',
 					'<%= html2js.app.dest %>',
 					'<%= html2js.common.dest %>',
-					'<%= vendor_files.js %>',
 					'module.suffix'
 				],
 				dest: '<%= compile_dir %>/assets/<%= pkg.name %>.js'
@@ -191,7 +192,7 @@ module.exports = function (grunt) {
 			compile: {
 				files: [
 					{
-						src: [ '<%= app_files.js %>' ],
+						src: [ '<%= app_files.js %>', '<%= app_files.i18n %>' ],
 						cwd: '<%= build_dir %>',
 						dest: '<%= build_dir %>',
 						expand: true
@@ -254,7 +255,7 @@ module.exports = function (grunt) {
 		 */
 		jshint: {
 			src: [
-				'<%= app_files.js %>'
+				'<%= app_files.js %>', '<%= app_files.i18n %>'
 			],
 			test: [
 				'<%= app_files.jsunit %>'
@@ -432,7 +433,7 @@ module.exports = function (grunt) {
 			 */
 			jssrc: {
 				files: [
-					'<%= app_files.js %>'
+					'<%= app_files.js %>', '<%= app_files.i18n %>'
 				],
 				tasks: [ 'jshint:src', 'karma:unit:run', 'copy:build_appjs' ]
 			},
@@ -555,7 +556,16 @@ module.exports = function (grunt) {
 	 */
 	function filterForJS(files) {
 		return files.filter(function (file) {
-			return file.match(/\.js$/);
+			return file.match(/\.js$/) && !file.match(/\.i18n\.js$/);
+		});
+	}
+
+	/**
+	 * A utility function to get all app i18n sources.
+	 */
+	function filterForI18n(files) {
+		return files.filter(function (file) {
+			return file.match(/\.i18n\.js$/);
 		});
 	}
 
@@ -579,6 +589,9 @@ module.exports = function (grunt) {
 		var jsFiles = filterForJS(this.filesSrc).map(function (file) {
 			return file.replace(dirRE, '');
 		});
+		var i18nFiles = filterForI18n(this.filesSrc).map(function (file) {
+			return file.replace(dirRE, '');
+		});
 		var cssFiles = filterForCSS(this.filesSrc).map(function (file) {
 			return file.replace(dirRE, '');
 		});
@@ -588,6 +601,7 @@ module.exports = function (grunt) {
 				return grunt.template.process(contents, {
 					data: {
 						scripts: jsFiles,
+						i18n: i18nFiles,
 						styles: cssFiles,
 						version: grunt.config('pkg.version')
 					}

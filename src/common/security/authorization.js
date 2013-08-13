@@ -1,4 +1,4 @@
-angular.module('security.authorization', ['security.service'])
+angular.module('services.security.authorization', ['services.security'])
 
 // This service provides guard methods to support AngularJS routes.
 // You can add them as resolves to routes to require authorization levels

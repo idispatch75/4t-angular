@@ -1,5 +1,5 @@
-angular.module('security.service', [
-		'security.retryQueue',    // Keeps track of failed requests that need to be retried once the user logs in
+angular.module('services.security.main', [
+		'services.security.retryQueue',    // Keeps track of failed requests that need to be retried once the user logs in
 		'ngCookies',
 		'ui.route',
 		'services.notifications',
@@ -48,6 +48,8 @@ angular.module('security.service', [
 
 				// The public API of the service
 				var service = {
+					user: api.user,
+
 					// Get the first reason for needing a login
 					getLoginReason: function () {
 						return queue.retryReason();
@@ -129,14 +131,4 @@ angular.module('security.service', [
 				return service;
 			}
 		]
-	)
-
-	.config(['$translateProvider', function ($translateProvider) {
-		$translateProvider.translations('fr', {
-			security: {
-				unauthorized: 'Vous devez être connecté pour accéder à cette page',
-				unexpectedError: "Une erreur inattendue s'est produite : {{ error }}",
-				invalidLogin: "L'e-mail ou mot de passe fournis sont incorrects"
-			}
-		});
-	}]);
+	);

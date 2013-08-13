@@ -1,1 +1,1 @@
-angular.module('security.login', ['security.login.toolbar']);
+angular.module('services.security.login', ['services.security.login.toolbar']);

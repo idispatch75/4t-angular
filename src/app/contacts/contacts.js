@@ -1,7 +1,7 @@
 angular.module('app.contacts', [
 		'ui.state',
 		'ui.bootstrap',
-		'titleService',
+		'services.title',
 		'services.4TApi',
 		'services.notifications',
 		'pascalprecht.translate'
@@ -36,12 +36,4 @@ angular.module('app.contacts', [
 			}
 		]
 	)
-
-	.config(['$translateProvider', function ($translateProvider) {
-		$translateProvider.translations('fr', {
-			contacts: {
-				title: 'Contacts'
-			}
-		});
-	}])
 ;
