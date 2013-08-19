@@ -28,8 +28,8 @@
 			<div class="container-fluid">
 				<a class="brand" href="#/home">4Thune</a>
 				<ul class="nav" ng-show="isAuthenticated()">
-					<li ng-class="{ active: $state.includes('transactions') }"><a href="#/transactions">Transactions</a></li>
-					<li ng-class="{ active: $state.includes('contacts') }"><a href="#/contacts">Contacts</a></li>
+					<li ng-class="{ active: $state.includes('transactions') }"><a href="#/transactions" translate>transactions.title</a></li>
+					<li ng-class="{ active: $state.includes('contacts') }"><a href="#/contacts" translate>contacts.title</a></li>
 				</ul>
 				<login-toolbar redirect="transactions"></login-toolbar>
 			</div>
@@ -43,5 +43,7 @@
 	<!-- compiled JS -->
 	<script type="text/javascript" src="assets/4Thune.js"></script>
 	
+
+	<!-- compiled i18n -->
 </body>
 </html>
