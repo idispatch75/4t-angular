@@ -1,5 +1,5 @@
 angular.module('app.contacts', [
-		'ui.state',
+		'ui.router',
 		'ui.bootstrap',
 		'services.title',
 		'services.4TApi',

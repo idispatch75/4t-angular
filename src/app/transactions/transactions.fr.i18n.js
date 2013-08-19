@@ -6,7 +6,16 @@ angular.module('app.transactions')
 				pseudo: 'Pseudo',
 				amount: 'Montant',
 				date: 'Date',
-				comment: 'Commentaire'
+				comment: 'Commentaire',
+				edit: {
+					legend: 'Transaction',
+					contact: 'Contact',
+					amount: 'Montant',
+					payer: 'Qui a payé',
+					credit: 'Moi',
+					date: 'Date de la transaction',
+					comment: 'Commentaire'
+				}
 			}
 		});
 	}])

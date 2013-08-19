@@ -1,4 +1,4 @@
-angular.module('services.security.login.toolbar', ['ui.state', 'pascalprecht.translate'])
+angular.module('services.security.login.toolbar', ['ui.router', 'pascalprecht.translate'])
 
 // The loginToolbar directive is a reusable widget that can show login or logout buttons
 // and information the current authenticated user
@@ -14,7 +14,7 @@ angular.module('services.security.login.toolbar', ['ui.state', 'pascalprecht.tra
 				$scope.login = function () {
 					security.login($scope.form.email, $scope.form.password).then(
 						function() {
-							$state.transitionTo($attrs.redirect);
+							$state.go($attrs.redirect);
 						}
 					);
 				};

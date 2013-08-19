@@ -1,0 +1,60 @@
+<div class="modal-header">
+	<h3 translate>transactions.edit.legend</h3>
+</div>
+<form name="transactionForm" novalidate class="form-horizontal">
+	<fieldset>
+		<div class="modal-body">
+			<div class="control-group">
+				<label class="control-label" for="contact" translate>transactions.edit.contact</label>
+
+				<div class="controls">
+					<select name="contact" ng-model="item.contact"
+					        ng-options="c.profile.pseudo for c in contacts" required>
+					</select>
+					<span class="text-error" ng-show="transactionForm.contact.$error.required && transactionForm.$dirty" translate>validation.fieldRequired</span>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="amount" translate>transactions.edit.amount</label>
+
+				<div class="controls">
+					<input type="number" name="amount" ng-model="item.amount" min="0" step="any" required>
+					<span class="text-error" ng-show="transactionForm.amount.$error.required && transactionForm.$dirty" translate>validation.fieldRequired</span>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="debt" translate>transactions.edit.payer</label>
+
+				<div class="controls">
+					<label class="radio">
+						<input type="radio" ng-model="item.debt" value="1"> {{ item.contact.profile.pseudo }}
+					</label>
+					<label class="radio">
+						<input type="radio" ng-model="item.debt" value="0"> {{ 'transactions.edit.credit' | translate }}
+					</label>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="date" translate>transactions.edit.date</label>
+
+				<div class="controls">
+					<input name="date" type="text" ng-model="item.date" date='DD/MM/YY' required="true" />
+					<span class="text-error" ng-show="transactionForm.date.$error.required && transactionForm.$dirty" translate>validation.fieldRequired</span>
+					<span class="text-error" ng-show="transactionForm.date.$error.date && transactionForm.$dirty" translate>validation.invalidFormat</span>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="comment" translate>transactions.edit.comment</label>
+
+				<div class="controls">
+					<input name="comment" type="text" ng-model="item.comment" required="true" />
+					<span class="text-error" ng-show="transactionForm.comment.$error.required && transactionForm.$dirty" translate>validation.fieldRequired</span>
+				</div>
+			</div>
+		</div>
+	</fieldset>
+</form>
+<div class="modal-footer">
+	<button ng-click="save()" class="btn btn-primary" translate>save</button>
+	<button ng-click="cancel()" class="btn" translate>cancel</button>
+</div>

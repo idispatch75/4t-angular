@@ -18,15 +18,12 @@ angular.module('services.4TApi')
 			}
 		}
 
-		function get(relativeUrl, config, onSuccess) {
+		function execute(httpPromise) {
 			var deferred = $q.defer();
 
-			$http.get(getUserUrl(relativeUrl), config)
-				.success(function (data, status, headers, config) {
+			httpPromise
+				.success(function (data, status) {
 					if (!data.header.error) {
-						if (onSuccess) {
-							onSuccess(data.body);
-						}
 						deferred.resolve(data.body);
 					}
 					else {
@@ -44,6 +41,22 @@ angular.module('services.4TApi')
 			}
 
 			return deferred.promise;
+		}
+
+		function get(relativeUrl, config) {
+			return execute($http.get(getUserUrl(relativeUrl), config));
+		}
+
+		function add(relativeUrl, body) {
+			return execute($http.post(getUserUrl(relativeUrl), body));
+		}
+
+		function update(relativeUrl, body) {
+			return execute($http.put(getUserUrl(relativeUrl), body));
+		}
+
+		function remove(relativeUrl) {
+			return execute($http.delete(getUserUrl(relativeUrl)));
 		}
 
 		function User(id, token) {
@@ -86,6 +99,24 @@ angular.module('services.4TApi')
 		service.transactions = {
 			getAll: function (cache) {
 				return get('/transactions', {cache: cache});
+			},
+
+			get: function (id, cache) {
+				return get('/transaction/' + id, {cache: cache});
+			},
+
+			add: function (contactId, amount, date, comment) {
+				var tx = {contactId: contactId, amount: amount, date: date, comment: comment};
+				return add('/transactions', tx);
+			},
+
+			update: function (txId, contactId, amount, date, comment) {
+				var tx = {contactId: contactId, amount: amount, date: date, comment: comment};
+				return update('/transaction/' + txId, tx);
+			},
+
+			delete: function (txId) {
+				return remove('/transaction/' + txId);
 			}
 		};
 

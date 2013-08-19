@@ -1,7 +1,7 @@
 angular.module('services.security.main', [
 		'services.security.retryQueue',    // Keeps track of failed requests that need to be retried once the user logs in
 		'ngCookies',
-		'ui.route',
+		'ui.router',
 		'services.notifications',
 		'services.4TApi',
 		'pascalprecht.translate'
@@ -66,7 +66,7 @@ angular.module('services.security.main', [
 									api.setUser(data.body);
 
 									// store in cookies
-									$cookieStore.put('userId', api.user.userId);
+									$cookieStore.put('userId', api.user.id);
 									$cookieStore.put('token', api.user.token);
 
 									deferred.resolve(true);

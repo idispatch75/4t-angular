@@ -9,7 +9,12 @@
 	</thead>
 	<tbody>
 		<tr ng-repeat="item in items" ng-class="{ 'error': item.isDebt, 'success': !item.isDebt }">
-			<td><a href="" ng-click="addFilter(item.pseudo)"><i class="icon-filter"></i></a>{{ item.pseudo }}</td>
+			<td>
+				<a href="" ng-click="addFilter(item.pseudo)"><i class="icon-filter"></i></a>
+				<a href="" ng-click="edit(item.id)"><i class="icon-edit"></i></a>
+				<a href="" ng-click="delete(item.id)"><i class="icon-remove"></i></a>
+				{{ item.pseudo }}
+			</td>
 			<td>{{ item.amount | currency:"€" }}</td>
 			<td>{{ item.date | date:"mediumDate" }}</td>
 			<td>{{ item.comment }}</td>
@@ -17,3 +22,4 @@
 		<tr><td></td><td><strong>{{ getTotal() | currency:"€" }}</strong></td><td></td><td></td></tr>
 	</tbody>
 </table>
+<button class="btn" type="button" ng-click="add()" translate>add</button>

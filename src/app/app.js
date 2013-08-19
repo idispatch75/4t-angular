@@ -1,8 +1,7 @@
 angular.module('app', [
 		'templates-app',
 		'templates-common',
-		'ui.state',
-		'ui.route',
+		'ui.router',
 		'pascalprecht.translate',
 		'services.security',
 		'services.notifications',
@@ -15,11 +14,12 @@ angular.module('app', [
 		$urlRouterProvider.otherwise('/home');
 	}])
 
-	.run(['$rootScope', '$state', '$stateParams', 'titleService',
-		function ($rootScope, $state, $stateParams, titleService) {
+	.run(['$rootScope', '$state', '$stateParams', 'titleService', '$window',
+		function ($rootScope, $state, $stateParams, titleService, $window) {
 			titleService.setSuffix(' | 4Thune');
 			$rootScope.$state = $state;
 			$rootScope.$stateParams = $stateParams;
+			$rootScope.$window = $window;
 		}])
 
 	.controller('AppCtrl',

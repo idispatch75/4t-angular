@@ -50,19 +50,21 @@ module.exports = {
    */
   vendor_files: {
     js: [
-      'vendor/angular/angular.js',
-      'vendor/angular-bootstrap/ui-bootstrap-tpls.js',
-      'vendor/angular-ui-router/angular-ui-router.js',
-      'vendor/angular-ui-utils/route.js',
-      'vendor/underscore/underscore.js',
-			'vendor/angular-translate/angular-translate.js',
-	    'vendor/angular-i18n/angular-locale_fr-fr.js',
-			'vendor/angular-cookies/angular-cookies.js',
-			'vendor/angular-translate-storage-cookie/angular-translate-storage-cookie.js',
-			'vendor/angular-translate-storage-local/angular-translate-storage-local.js',
-			'vendor/angular-translate-loader-static-files/angular-translate-loader-static-files.js',
-			'vendor/angular-translate-interpolation-messageformat/angular-translate-interpolation-messageformat.js',
-			'vendor/messageformat/messageformat.js'
+      'bower_components/angular/angular.js',
+      'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+      'bower_components/angular-ui-router/release/angular-ui-router.js',
+      'bower_components/angular-ui-utils/modules/route/route.js',
+      'bower_components/lodash/lodash.js',
+			'bower_components/angular-translate/angular-translate.js',
+	    'bower_components/angular-i18n/angular-locale_fr-fr.js',
+			'bower_components/angular-cookies/angular-cookies.js',
+			'bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.js',
+			'bower_components/angular-translate-storage-local/angular-translate-storage-local.js',
+			'bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js',
+			'bower_components/angular-translate-interpolation-messageformat/angular-translate-interpolation-messageformat.js',
+			'bower_components/messageformat/messageformat.js',
+	    'bower_components/momentjs/moment.js',
+	    'bower_components/momentjs/min/lang/fr.js'
     ],
     css: [
     ]
